@@ -23,7 +23,8 @@ public class MessageCounts {
 
 
         Uri sms_content = Uri.parse("content://sms/inbox");
-        Cursor c = context.getContentResolver().query(sms_content, null, null, null, null);
+   //     Cursor c = context.getContentResolver().query(sms_content, null, null, null, null);
+        Cursor c = context.getContentResolver().query(sms_content, null, "read = 0", null, null);
         c.moveToFirst();
         Log.d("SMS COUNT", "" + c.getCount()); //do some other operation
 //Here proceed with the what you wanted

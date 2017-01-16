@@ -14,9 +14,11 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -32,6 +34,8 @@ public class SliderService extends Service {
     FrameLayout sliderTouchLayout, sliderLayout;
     WindowManager.LayoutParams sliderTouchParams, sliderParams;
     RelativeLayout relativeLayout_2nd;
+    LinearLayout linearLayout_1st;
+    int linearLayout_1st_height,linearLayout_1st_width;
     int statusBarHeight, screenWidth, screenHeight;
     int x, y;
     int initialx, finalx, diffx;
@@ -42,6 +46,7 @@ public class SliderService extends Service {
     TextView messeges, misscall, alarm;
     MessageCounts messageCounts;
     CallCounts callCounts;
+    ObjectAnimator OpeningobjectAnimator;
 
     @Nullable
     @Override
@@ -84,6 +89,7 @@ public class SliderService extends Service {
 
         sliderLayout = (FrameLayout) layoutInflater.inflate(R.layout.slider_layout, null);
         relativeLayout_2nd = (RelativeLayout) sliderLayout.findViewById(R.id.relativeLayout_2ndview);
+        linearLayout_1st = (LinearLayout) sliderLayout.findViewById(R.id.linearLayout_1stView);
         messeges = (TextView) sliderLayout.findViewById(R.id.messeges);
         misscall = (TextView) sliderLayout.findViewById(R.id.missalls);
         alarm = (TextView) sliderLayout.findViewById(R.id.alarm);
@@ -96,6 +102,8 @@ public class SliderService extends Service {
                         WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 PixelFormat.TRANSLUCENT);
         sliderParams.gravity = Gravity.TOP | Gravity.LEFT;
+        linearLayout_1st.getLayoutParams().width = screenHeight;
+
 //        sliderParams.x = 0;
 //        sliderParams.y = 10;
         windowManager.addView(sliderLayout, sliderParams);
@@ -114,6 +122,7 @@ public class SliderService extends Service {
 
                         break;
                     case MotionEvent.ACTION_MOVE:
+
                         x = (int) event.getRawX();
                         y = (int) event.getRawY();
                         sliderLayout.setVisibility(View.VISIBLE);
@@ -121,11 +130,10 @@ public class SliderService extends Service {
                         sliderParams.y = 0;
                         windowManager.updateViewLayout(sliderLayout, sliderParams);
 
-
-                        misscall.setAlpha(CurrentAlpha());
-                        messeges.setAlpha(CurrentAlpha());
-                        alarm.setAlpha(CurrentAlpha());
-                        relativeLayout_2nd.setAlpha(relativeLayoutAlpha());
+                        misscall.setAlpha(linearLayout_1st_Alpha());
+                        messeges.setAlpha(linearLayout_1st_Alpha());
+                        alarm.setAlpha(linearLayout_1st_Alpha());
+                        relativeLayout_2nd.setAlpha(relativeLayout_2nd_Alpha());
 
 
                         break;
@@ -133,10 +141,10 @@ public class SliderService extends Service {
 
                         if (x < (2 * oneThirdOfScreen)) {
 
-                            ObjectAnimator objectAnimator = new ObjectAnimator();
-                            objectAnimator.setDuration(200);
-                            objectAnimator.setFloatValues(x, 0f);
-                            objectAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                            OpeningobjectAnimator = new ObjectAnimator();
+                            OpeningobjectAnimator.setDuration(200);
+                            OpeningobjectAnimator.setFloatValues(x, 0f);
+                            OpeningobjectAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 @Override
                                 public void onAnimationUpdate(ValueAnimator animation) {
                                     float value = (float) animation.getAnimatedValue();
@@ -146,16 +154,16 @@ public class SliderService extends Service {
                                     windowManager.updateViewLayout(sliderLayout, sliderParams);
                                 }
                             });
-                            objectAnimator.start();
+                            OpeningobjectAnimator.start();
                             relativeLayout_2nd.setAlpha(0);
 
                         } else {
 
-                            ObjectAnimator objectAnimator = new ObjectAnimator();
-                            objectAnimator.setDuration(1000);
-                            objectAnimator.setFloatValues(x, screenWidth);
-                            objectAnimator.setInterpolator(new OvershootInterpolator());
-                            objectAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                            OpeningobjectAnimator = new ObjectAnimator();
+                            OpeningobjectAnimator.setDuration(500);
+                            OpeningobjectAnimator.setFloatValues(x, screenWidth);
+                            OpeningobjectAnimator.setInterpolator(new OvershootInterpolator());
+                            OpeningobjectAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 @Override
                                 public void onAnimationUpdate(ValueAnimator animation) {
                                     float value = (float) animation.getAnimatedValue();
@@ -165,7 +173,7 @@ public class SliderService extends Service {
                                     windowManager.updateViewLayout(sliderLayout, sliderParams);
                                 }
                             });
-                            objectAnimator.start();
+                            OpeningobjectAnimator.start();
                         }
                         relativeLayout_2nd.setAlpha(1);
                         //   endTime = System.currentTimeMillis();
@@ -186,11 +194,10 @@ public class SliderService extends Service {
                     case MotionEvent.ACTION_DOWN:
 
 
-
                         break;
                     case MotionEvent.ACTION_UP:
-int oneThirdOfScreen = screenWidth/3;
-                        if (x >  oneThirdOfScreen) {
+                        int oneThirdOfScreen = screenWidth / 3;
+                        if (x > oneThirdOfScreen) {
 
                             ObjectAnimator objectAnimator = new ObjectAnimator();
                             objectAnimator.setDuration(500);
@@ -206,7 +213,7 @@ int oneThirdOfScreen = screenWidth/3;
                                 }
                             });
                             objectAnimator.start();
-                     //       relativeLayout_2nd.setAlpha(0);
+                    //               relativeLayout_2nd.setAlpha(0);
 
                         } else {
 
@@ -225,9 +232,8 @@ int oneThirdOfScreen = screenWidth/3;
                             });
                             objectAnimator.start();
                         }
-                    //    relativeLayout_2nd.setAlpha(1);
+             //               relativeLayout_2nd.setAlpha(1);
                         //   endTime = System.currentTimeMillis();
-
 
 
                         break;
@@ -235,14 +241,15 @@ int oneThirdOfScreen = screenWidth/3;
 
                         x = (int) event.getRawX();
                         y = (int) event.getRawY();
+                        final int initial_difference = x;
                         sliderParams.x = x;
                         sliderParams.y = 0;
                         windowManager.updateViewLayout(sliderLayout, sliderParams);
 
-                        misscall.setAlpha(CurrentAlpha());
-                        messeges.setAlpha(CurrentAlpha());
-                        alarm.setAlpha(CurrentAlpha());
-                        relativeLayout_2nd.setAlpha(relativeLayoutAlpha());
+                        misscall.setAlpha(linearLayout_1st_Alpha());
+                        messeges.setAlpha(linearLayout_1st_Alpha());
+                        alarm.setAlpha(linearLayout_1st_Alpha());
+                        relativeLayout_2nd.setAlpha(relativeLayout_2nd_Alpha());
 
                         break;
                 }
@@ -252,16 +259,31 @@ int oneThirdOfScreen = screenWidth/3;
         });
 
         misscall.setText("" + callCounts.getMissedCalls());
-        messeges.setText("" + messageCounts.getMessages());
+        messeges.setText("Messeges = " + messageCounts.getMessages());
         Log.d(TAG, "Count: " + callCounts.getMissedCalls());
         Log.d(TAG, "Count: " + messageCounts.getMessages());
         windowManager.updateViewLayout(sliderLayout, sliderParams);
 
 
+        ViewTreeObserver observer = linearLayout_1st.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            @Override
+            public void onGlobalLayout() {
+                // TODO Auto-generated method stub
+                init();
+                linearLayout_1st.getViewTreeObserver().removeGlobalOnLayoutListener(
+                        this);
+            }
+        });
+    }
+    protected void init() {
+        linearLayout_1st_height= linearLayout_1st.getHeight();
+        linearLayout_1st_width= linearLayout_1st.getWidth();
+        Log.d("height" + linearLayout_1st_height,"width"+linearLayout_1st_width);
     }
 
-
-    private void sliderTouchLayout_LongClick() {
+   private void sliderTouchLayout_LongClick() {
         ObjectAnimator objectAnimator = new ObjectAnimator();
         objectAnimator.setDuration(500);
         objectAnimator.setFloatValues(screenWidth, 623);
@@ -281,25 +303,28 @@ int oneThirdOfScreen = screenWidth/3;
 
     }
 
-    private float relativeLayoutAlpha() {
-        int oneThird = screenWidth / 3;
-        initialPosition = 2 * oneThird;
+    private float relativeLayout_2nd_Alpha() {
+
+        initialPosition =screenWidth - (2 * linearLayout_1st_height);
         finalPositiopn = 0;
         diffx = initialPosition - x;
-        currentx = (diffx * 100 / (2 * oneThird));
+        currentx = (diffx * 100 / initialPosition);
+        if (x > initialPosition) {
+            relativeLayout_2nd.setVisibility(View.GONE);
+        } else {
+            relativeLayout_2nd.setVisibility(View.VISIBLE);
+        }
 
         return currentx / 100;
     }
 
-    private float CurrentAlpha() {
+    private float linearLayout_1st_Alpha() {
 
 
-        int oneThird = screenWidth / 3;
-        initialx = screenWidth;
-        finalx = 2 * oneThird;
+        initialx = screenWidth-linearLayout_1st_height;
+        finalx = 2 * linearLayout_1st_height;
         diffx = initialx - x;
-        currentx = (diffx * 100 / oneThird);
-
+        currentx = (diffx * 100 / linearLayout_1st_height);
 
         Log.d("diffX" + diffx, "   currentX" + currentx);
         return (100 - currentx) / 100;
