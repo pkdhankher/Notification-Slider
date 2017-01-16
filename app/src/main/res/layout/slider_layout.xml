@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e444"
+    android:visibility="gone">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/relativeLayout_2ndview"
+        android:alpha="0">
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            card_view:cardElevation="-3dp"
+            card_view:cardBackgroundColor="#333030"
+            card_view:cardCornerRadius="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="16dp">
+            <TextClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textClock"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:textStyle="bold"
+                android:textSize="50dp"
+                android:textColor="#fff"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/missed_calls"
+            card_view:cardBackgroundColor="#5b5e5e"
+            card_view:cardElevation="3dp"
+            android:layout_marginTop="150dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/call"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Missed Calls"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="90dp"
+                android:textSize="20dp"
+                android:textColor="#fff"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/meetings"
+            card_view:cardBackgroundColor="#5b5e5e"
+            card_view:cardElevation="3dp"
+            android:layout_marginTop="250dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/calendar"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Todat's Meetings"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="90dp"
+                android:textSize="20dp"
+                android:textColor="#fff"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/Emails"
+            card_view:cardBackgroundColor="#5b5e5e"
+            card_view:cardElevation="3dp"
+            android:layout_marginTop="350dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/mail"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="90dp"
+                android:textSize="20dp"
+                android:textColor="#fff"/>
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+
+        <TextView
+            android:layout_width="110dp"
+            android:layout_height="50dp"
+            android:id="@+id/missalls"
+            android:text="Miss Calls"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:background="@drawable/textview_border"
+            android:layout_gravity="left|top"
+            android:rotation="90"
+            android:layout_marginTop="40dp" />
+    <TextView
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:id="@+id/messeges"
+        android:text="Messeges"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        android:background="@drawable/textview_border"
+        android:layout_gravity="center|left"
+        android:rotation="90"/>
+    <TextView
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:id="@+id/alarm"
+        android:text="Alarms"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        android:background="@drawable/textview_border"
+        android:layout_gravity="left|bottom"
+        android:rotation="90"
+        android:layout_marginBottom="40dp"/>
+
+
+
+</FrameLayout>
