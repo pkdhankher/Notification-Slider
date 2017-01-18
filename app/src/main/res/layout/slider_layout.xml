@@ -29,9 +29,64 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="7dp"
                 android:textColor="#fff"
-                android:textSize="50dp"
+                android:textSize="42dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="#615f5f" />
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginLeft="40dp"
+                android:src="@drawable/icon_34" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="12dp"
+                android:text="Gurgaon"
+                android:textColor="#fff"
+                android:textSize="25sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="35dp"
+                android:layout_marginTop="30dp"
+                android:text="23"
+                android:textColor="#fff"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="65dp"
+                android:layout_marginTop="65dp"
+                android:text="L 15"
+                android:textColor="#fff"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="10sp"
+                android:layout_marginTop="65dp"
+                android:text="H 30"
+                android:textColor="#fff"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
         </android.support.v7.widget.CardView>
@@ -114,12 +169,12 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout_1stView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:rotation="90"
-        android:transformPivotY="30dp"
-        android:id="@+id/linearLayout_1stView">
+        android:transformPivotY="30dp">
 
         <TextView
             android:id="@+id/missalls"
@@ -134,11 +189,11 @@
             android:id="@+id/messeges"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
             android:layout_weight="1"
             android:text="Messeges"
             android:textColor="#fff"
-            android:textSize="20sp"
-            android:layout_marginLeft="40dp"/>
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/alarm"

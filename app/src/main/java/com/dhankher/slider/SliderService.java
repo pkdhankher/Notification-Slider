@@ -6,7 +6,9 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Display;
@@ -22,6 +24,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dhankher.slider.location.CurrentLocation;
+import com.google.gson.Gson;
+import java.io.IOException;
+
 import static android.content.ContentValues.TAG;
 
 /**
@@ -35,7 +41,7 @@ public class SliderService extends Service {
     WindowManager.LayoutParams sliderTouchParams, sliderParams;
     RelativeLayout relativeLayout_2nd;
     LinearLayout linearLayout_1st;
-    int linearLayout_1st_height,linearLayout_1st_width;
+    int linearLayout_1st_height, linearLayout_1st_width;
     int statusBarHeight, screenWidth, screenHeight;
     int x, y;
     int initialx, finalx, diffx;
@@ -57,6 +63,7 @@ public class SliderService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        CurrentLocation.getRunningInstance().onStart();
         callCounts = new CallCounts(getBaseContext());
         messageCounts = new MessageCounts(getBaseContext());
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
@@ -66,7 +73,6 @@ public class SliderService extends Service {
         screenWidth = size.x;
         screenHeight = size.y;
         Log.d("screenWidth: " + screenWidth, "screenHeight" + screenHeight);
-
 
         layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
@@ -107,7 +113,6 @@ public class SliderService extends Service {
 //        sliderParams.x = 0;
 //        sliderParams.y = 10;
         windowManager.addView(sliderLayout, sliderParams);
-
 
         sliderTouchLayout.setOnTouchListener(new View.OnTouchListener() {
             int oneThirdOfScreen = screenWidth / 3;
@@ -213,7 +218,7 @@ public class SliderService extends Service {
                                 }
                             });
                             objectAnimator.start();
-                    //               relativeLayout_2nd.setAlpha(0);
+                            //               relativeLayout_2nd.setAlpha(0);
 
                         } else {
 
@@ -232,7 +237,7 @@ public class SliderService extends Service {
                             });
                             objectAnimator.start();
                         }
-             //               relativeLayout_2nd.setAlpha(1);
+                        //               relativeLayout_2nd.setAlpha(1);
                         //   endTime = System.currentTimeMillis();
 
 
@@ -277,13 +282,15 @@ public class SliderService extends Service {
             }
         });
     }
+
+
     protected void init() {
-        linearLayout_1st_height= linearLayout_1st.getHeight();
-        linearLayout_1st_width= linearLayout_1st.getWidth();
-        Log.d("height" + linearLayout_1st_height,"width"+linearLayout_1st_width);
+        linearLayout_1st_height = linearLayout_1st.getHeight();
+        linearLayout_1st_width = linearLayout_1st.getWidth();
+        Log.d("height" + linearLayout_1st_height, "width" + linearLayout_1st_width);
     }
 
-   private void sliderTouchLayout_LongClick() {
+    private void sliderTouchLayout_LongClick() {
         ObjectAnimator objectAnimator = new ObjectAnimator();
         objectAnimator.setDuration(500);
         objectAnimator.setFloatValues(screenWidth, 623);
@@ -305,7 +312,7 @@ public class SliderService extends Service {
 
     private float relativeLayout_2nd_Alpha() {
 
-        initialPosition =screenWidth - (2 * linearLayout_1st_height);
+        initialPosition = screenWidth - (2 * linearLayout_1st_height);
         finalPositiopn = 0;
         diffx = initialPosition - x;
         currentx = (diffx * 100 / initialPosition);
@@ -321,7 +328,7 @@ public class SliderService extends Service {
     private float linearLayout_1st_Alpha() {
 
 
-        initialx = screenWidth-linearLayout_1st_height;
+        initialx = screenWidth - linearLayout_1st_height;
         finalx = 2 * linearLayout_1st_height;
         diffx = initialx - x;
         currentx = (diffx * 100 / linearLayout_1st_height);
@@ -331,4 +338,9 @@ public class SliderService extends Service {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        CurrentLocation.getRunningInstance().onStop();
+    }
 }

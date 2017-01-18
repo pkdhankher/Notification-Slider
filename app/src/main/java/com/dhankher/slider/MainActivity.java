@@ -12,15 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.dhankher.slider.location.CurrentLocation;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //   setContentView(R.layout.activity_main);
-
-
-
 
 
         if (android.os.Build.VERSION.SDK_INT >= 23) {   //Android M Or Over
