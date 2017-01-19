@@ -1,172 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e444"
-    android:visibility="gone">
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout_2ndview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0"
-        android:orientation="vertical">
-
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="16dp"
-            card_view:cardBackgroundColor="#333030"
-            card_view:cardCornerRadius="20dp"
-            card_view:cardElevation="-3dp">
-
-            <TextClock
-                android:id="@+id/textClock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_gravity="left|center_vertical"
-                android:layout_marginLeft="7dp"
-                android:textColor="#fff"
-                android:textSize="42dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="1dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:background="#615f5f" />
-
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_marginLeft="40dp"
-                android:src="@drawable/icon_34" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginRight="12dp"
-                android:text="Gurgaon"
-                android:textColor="#fff"
-                android:textSize="25sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginRight="35dp"
-                android:layout_marginTop="30dp"
-                android:text="23"
-                android:textColor="#fff"
-                android:textSize="30sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginRight="65dp"
-                android:layout_marginTop="65dp"
-                android:text="L 15"
-                android:textColor="#fff"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginRight="10sp"
-                android:layout_marginTop="65dp"
-                android:text="H 30"
-                android:textColor="#fff"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-        </android.support.v7.widget.CardView>
-
-
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/missed_calls"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="150dp"
-            card_view:cardBackgroundColor="#5b5e5e"
-            card_view:cardElevation="3dp">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/call" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="90dp"
-                android:text="Missed Calls"
-                android:textColor="#fff"
-                android:textSize="20dp" />
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/meetings"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="250dp"
-            card_view:cardBackgroundColor="#5b5e5e"
-            card_view:cardElevation="3dp">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/calendar" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="90dp"
-                android:text="Todat's Meetings"
-                android:textColor="#fff"
-                android:textSize="20dp" />
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/Emails"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="350dp"
-            card_view:cardBackgroundColor="#5b5e5e"
-            card_view:cardElevation="3dp">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/mail" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="90dp"
-                android:text="Email"
-                android:textColor="#fff"
-                android:textSize="20dp" />
-        </android.support.v7.widget.CardView>
-    </RelativeLayout>
+    >
 
     <LinearLayout
         android:id="@+id/linearLayout_1stView"
@@ -205,6 +43,194 @@
             android:textSize="20sp" />
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_2ndview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical">
+
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/meetings"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="250dp"
+            card_view:cardBackgroundColor="#484848"
+            card_view:cardElevation="3dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/calendar" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="90dp"
+                android:text="Todat's Meetings"
+                android:textColor="#FBFBFB"
+                android:textSize="20dp" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/Emails"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="350dp"
+            card_view:cardBackgroundColor="#484848"
+            card_view:cardElevation="3dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/mail" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="90dp"
+                android:text="Email"
+                android:textColor="#FBFBFB"
+                android:textSize="20dp" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="19dp"
+            card_view:cardBackgroundColor="#333030"
+            card_view:cardCornerRadius="20dp"
+            card_view:cardElevation="-3dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/cardView">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="0dp"
+                android:layout_marginLeft="25dp"
+                android:layout_gravity="top|left"
+                android:textColor="#FEFEFE"
+                android:text="4:20"
+                android:textSize="60sp"
+                android:id="@+id/textClock"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PM"
+                android:textColor="#F0F0F0"
+                android:layout_marginTop="45dp"
+                android:layout_marginLeft="132dp"
+                android:id="@+id/TimePeriod"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tuesdat,Sept 21"
+                android:textColor="#F0F0F0"
+                android:textSize="17sp"
+                android:layout_marginTop="72dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="#615f5f" />
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginLeft="40dp"
+                android:src="@drawable/icon_34" />
+
+            <TextView
+                android:id="@+id/cityName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="12dp"
+                android:text="Gurgaon"
+                android:textColor="#898989"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="35dp"
+                android:layout_marginTop="30dp"
+                android:text="23"
+                android:textColor="#FBFBFB"
+                android:textSize="40sp" />
+
+            <TextView
+                android:id="@+id/lowestTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="65dp"
+                android:layout_marginTop="75dp"
+                android:text="L 15"
+                android:textColor="#898989"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/highestTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="10sp"
+                android:layout_marginTop="75dp"
+                android:text="H 30"
+                android:textColor="#898989"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/missed_calls"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="32dp"
+            card_view:cardBackgroundColor="#484848"
+            card_view:cardElevation="3dp"
+            android:layout_below="@+id/cardView"
+            android:layout_alignParentStart="true">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/call" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="90dp"
+                android:text="Missed Calls"
+                android:textColor="#FBFBFB"
+                android:textSize="20dp" />
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
 
 
 </FrameLayout>

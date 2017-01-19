@@ -2,13 +2,13 @@ package com.dhankher.slider.weather;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.dhankher.slider.location.Location;
+import com.dhankher.slider.SliderService;
+import com.dhankher.slider.location.Loc;
 import com.dhankher.slider.location.LocationManager;
 import com.dhankher.slider.network.requests.GetWeatherRequest;
 
@@ -23,8 +23,9 @@ public class WeatherManager implements WeatherDetector {
     private Weather curruntWeather;
     private AlarmManager updateEveryHourAlarmManager;
     private PendingIntent updateEveryHourPendingIntent;
+    WeatherUpdateDetector weatherUpdateDetector;
 
-    public WeatherManager(Context context) {
+    public WeatherManager(Context context, WeatherUpdateDetector weatherUpdateDetector) {
         if (runningInstance == null) {
             runningInstance = this;
         } else {
@@ -32,8 +33,7 @@ public class WeatherManager implements WeatherDetector {
         }
         Log.d(TAG, "WeatherManagerConstructor: ");
         this.context = context;
-
-        requestForWeatherUpdate();
+        this.weatherUpdateDetector = weatherUpdateDetector;
         startUpdatingEveryHour();
     }
 
@@ -43,18 +43,17 @@ public class WeatherManager implements WeatherDetector {
 
     public void requestForWeatherUpdate() {
         Log.d(TAG, "requestForWeatherUpdate: ");
-        Location location = LocationManager.getInstance().getLastKnownLocation();
-        new GetWeatherRequest(context, this, location).start();
+        Loc loc = LocationManager.getRunningInstance().getLastKnownLocation();
+        new GetWeatherRequest(context, this, loc).start();
     }
 
     public static WeatherManager getInstance() {
         return runningInstance;
     }
 
-    public static void init(Context context) {
-
+    public static void init(Context context, WeatherUpdateDetector weatherUpdateDetector) {
         Log.d(TAG, "init: ");
-        new WeatherManager(context);
+        new WeatherManager(context, weatherUpdateDetector);
     }
 
     private void startUpdatingEveryHour() {
@@ -66,15 +65,18 @@ public class WeatherManager implements WeatherDetector {
         updateEveryHourAlarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_HOUR,
                 AlarmManager.INTERVAL_HOUR, updateEveryHourPendingIntent);
+
     }
 
     @Override
     public void onWeatherUpdated(Weather weather) {
         Log.d(TAG, "onWeatherUpdated: ");
         curruntWeather = weather;
+        weatherUpdateDetector.onWeatherUpdated(weather);
     }
 
     @Override
     public void onWeatherFailedToUpdate(String error) {
+        Log.e(TAG, "onWeatherFailedToUpdate: " + error);
     }
 }

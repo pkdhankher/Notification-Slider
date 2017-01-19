@@ -1,18 +1,10 @@
 package com.dhankher.slider;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.Uri;
-import android.provider.CallLog;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-
-import com.dhankher.slider.location.CurrentLocation;
 
 public class MainActivity extends AppCompatActivity {
 

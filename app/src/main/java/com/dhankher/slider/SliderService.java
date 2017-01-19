@@ -6,9 +6,8 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
+import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Display;
@@ -20,13 +19,17 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.dhankher.slider.location.CurrentLocation;
-import com.google.gson.Gson;
-import java.io.IOException;
+import com.dhankher.slider.location.Loc;
+import com.dhankher.slider.location.LocationManager;
+import com.dhankher.slider.location.LocationUpdateDetector;
+import com.dhankher.slider.weather.Weather;
+import com.dhankher.slider.weather.WeatherManager;
+import com.dhankher.slider.weather.WeatherUpdateDetector;
 
 import static android.content.ContentValues.TAG;
 
@@ -34,7 +37,7 @@ import static android.content.ContentValues.TAG;
  * Created by Dhankher on 1/11/2017.
  */
 
-public class SliderService extends Service {
+public class SliderService extends Service implements LocationUpdateDetector, WeatherUpdateDetector {
     WindowManager windowManager;
     LayoutInflater layoutInflater;
     FrameLayout sliderTouchLayout, sliderLayout;
@@ -50,6 +53,8 @@ public class SliderService extends Service {
     float downx, upx;
     boolean isSliderVisible = false;
     TextView messeges, misscall, alarm;
+    TextView temp, lowestTemp, highestTemp,cityName;
+    ImageView weatherThumbnil;
     MessageCounts messageCounts;
     CallCounts callCounts;
     ObjectAnimator OpeningobjectAnimator;
@@ -63,7 +68,10 @@ public class SliderService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        CurrentLocation.getRunningInstance().onStart();
+        new LocationManager(getApplicationContext(), this).init();
+        WeatherManager.init(getApplicationContext(), this);
+
+        LocationManager.getRunningInstance().onStart();
         callCounts = new CallCounts(getBaseContext());
         messageCounts = new MessageCounts(getBaseContext());
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
@@ -78,7 +86,6 @@ public class SliderService extends Service {
 
         sliderTouchLayout = (FrameLayout) layoutInflater.inflate(R.layout.slider_touch_layout, null);
 //        sliderTouchView = sliderTouchLayout.findViewById(R.id.slider_touch_view);
-
         sliderTouchParams = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
@@ -99,6 +106,11 @@ public class SliderService extends Service {
         messeges = (TextView) sliderLayout.findViewById(R.id.messeges);
         misscall = (TextView) sliderLayout.findViewById(R.id.missalls);
         alarm = (TextView) sliderLayout.findViewById(R.id.alarm);
+        temp = (TextView) relativeLayout_2nd.findViewById(R.id.temp);
+        lowestTemp = (TextView) relativeLayout_2nd.findViewById(R.id.lowestTemp);
+        highestTemp = (TextView) relativeLayout_2nd.findViewById(R.id.highestTemp);
+        cityName = (TextView) relativeLayout_2nd.findViewById(R.id.cityName);
+
         sliderParams = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT,
@@ -341,6 +353,37 @@ public class SliderService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        CurrentLocation.getRunningInstance().onStop();
+        LocationManager.getRunningInstance().onStop();
+    }
+
+    @Override
+    public void onLocationUpdated(Loc location) {
+        Log.d(TAG, "onLocationUpdated: " + location);
+        WeatherManager.getInstance().requestForWeatherUpdate();
+    }
+
+    @Override
+    public void onWeatherUpdated(Weather weather) {
+        Log.d("WeatherManager", "onWeatherUpdated: " + weather);
+        int wTemp = Integer.parseInt(weather.getQuery().getResults().getChannel().getItem().getCondition().getTemp());
+       int minTemp = Integer.parseInt(weather.getQuery().getResults().getChannel().getItem().getForecast().get(0).getLow().toString());
+        int maxTemp = Integer.parseInt(weather.getQuery().getResults().getChannel().getItem().getForecast().get(0).getHigh().toString());
+        String city = weather.getQuery().getResults().getChannel().getLocation().getCity();
+        String WeatherImage = weather.getQuery().getResults().getChannel().getItem().getDescription();
+            Log.i("lowTemp", "onWeatherUpdated: " + WeatherImage);
+        final String DEGREE  = "\u00b0";
+        temp.setText(""+fahrenToCelsius(wTemp)+DEGREE);
+        lowestTemp.setText("L "+fahrenToCelsius(minTemp)+DEGREE);
+        highestTemp.setText("H "+fahrenToCelsius(maxTemp)+DEGREE);
+        cityName.setText(city);
+
+
+
+    }
+    public int fahrenToCelsius(int f){
+        final String DEGREE  = "\u00b0";
+      int  celsious = ((f-32)*5/9);
+
+        return celsious;
     }
 }

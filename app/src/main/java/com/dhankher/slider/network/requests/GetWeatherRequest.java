@@ -1,12 +1,12 @@
 package com.dhankher.slider.network.requests;
 
 import android.content.Context;
+import android.util.Log;
 
-import com.dhankher.slider.location.Location;
+import com.dhankher.slider.location.Loc;
 import com.dhankher.slider.network.NetworkConstants;
 import com.dhankher.slider.network.callbacks.GetWeatherCallback;
 import com.dhankher.slider.network.core.HttpRequest;
-import com.dhankher.slider.network.core.RequestCallback;
 import com.dhankher.slider.weather.WeatherDetector;
 
 import okhttp3.FormBody;
@@ -18,23 +18,25 @@ import okhttp3.RequestBody;
 
 public class GetWeatherRequest extends HttpRequest {
     private Context context;
-    private Location location;
+    private Loc loc;
     private WeatherDetector weatherDetector;
 
-    public GetWeatherRequest(Context context, WeatherDetector weatherDetector, Location location) {
+    public GetWeatherRequest(Context context, WeatherDetector weatherDetector, Loc loc) {
         super(context);
         this.weatherDetector = weatherDetector;
         this.context = context;
-        this.location = location;
+        this.loc = loc;
     }
 
     public void start() {
-        if (location==null)
+        if (loc ==null) {
+            Log.e("WeatherManager", "start: location is null, not sending request");
             return;
+        }
         RequestBody formBody = new FormBody.Builder()
-                .add("city", location.getCity())
-                .add("lat", "" + location.getLat())
-                .add("lng", "" + location.getLng())
+                .add("city", loc.getCity())
+                .add("lat", "" + loc.getLat())
+                .add("lng", "" + loc.getLng())
                 .build();
 
         String url = NetworkConstants.ROUTE_GET_WEATHER;

@@ -4,7 +4,7 @@ package com.dhankher.slider.location;
  * Created by Dhankher on 1/17/2017.
  */
 
-public class Location {
+public class Loc {
     Double lat, lng;
     String city;
 
@@ -30,5 +30,11 @@ public class Location {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    @Override
+    public String toString() {
+        String data= "lat: "+lat+"\nlng: "+lng+"\ncity:"+city;
+        return data;
     }
 }
