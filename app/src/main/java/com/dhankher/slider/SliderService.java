@@ -31,6 +31,8 @@ import com.dhankher.slider.weather.Weather;
 import com.dhankher.slider.weather.WeatherManager;
 import com.dhankher.slider.weather.WeatherUpdateDetector;
 
+import java.util.Calendar;
+
 import static android.content.ContentValues.TAG;
 
 /**
@@ -54,6 +56,7 @@ public class SliderService extends Service implements LocationUpdateDetector, We
     boolean isSliderVisible = false;
     TextView messeges, misscall, alarm;
     TextView temp, lowestTemp, highestTemp,cityName;
+    TextView textClock,timePeriod,date;
     ImageView weatherThumbnil;
     MessageCounts messageCounts;
     CallCounts callCounts;
@@ -110,6 +113,10 @@ public class SliderService extends Service implements LocationUpdateDetector, We
         lowestTemp = (TextView) relativeLayout_2nd.findViewById(R.id.lowestTemp);
         highestTemp = (TextView) relativeLayout_2nd.findViewById(R.id.highestTemp);
         cityName = (TextView) relativeLayout_2nd.findViewById(R.id.cityName);
+        textClock = (TextView) relativeLayout_2nd.findViewById(R.id.textClock);
+        timePeriod = (TextView) relativeLayout_2nd.findViewById(R.id.timePeriod);
+        date = (TextView) relativeLayout_2nd.findViewById(R.id.date);
+
 
         sliderParams = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.MATCH_PARENT,
@@ -151,6 +158,20 @@ public class SliderService extends Service implements LocationUpdateDetector, We
                         messeges.setAlpha(linearLayout_1st_Alpha());
                         alarm.setAlpha(linearLayout_1st_Alpha());
                         relativeLayout_2nd.setAlpha(relativeLayout_2nd_Alpha());
+
+
+                        Calendar c = Calendar.getInstance();
+                        int hours = c.get(Calendar.HOUR);
+                        int min = c.get(Calendar.MINUTE);
+                        int zone = c.get(Calendar.AM_PM);
+                        String timeZone;
+                        if(zone==0){
+                            timeZone = "AM";
+                        }else{
+                            timeZone = "PM";
+                        }
+                        textClock.setText(hours +":" +min);
+                        timePeriod.setText(timeZone);
 
 
                         break;
@@ -369,15 +390,14 @@ public class SliderService extends Service implements LocationUpdateDetector, We
        int minTemp = Integer.parseInt(weather.getQuery().getResults().getChannel().getItem().getForecast().get(0).getLow().toString());
         int maxTemp = Integer.parseInt(weather.getQuery().getResults().getChannel().getItem().getForecast().get(0).getHigh().toString());
         String city = weather.getQuery().getResults().getChannel().getLocation().getCity();
+        Log.d(TAG, "currentTemp: "+wTemp+minTemp+city);
         String WeatherImage = weather.getQuery().getResults().getChannel().getItem().getDescription();
-            Log.i("lowTemp", "onWeatherUpdated: " + WeatherImage);
+  //          Log.i("lowTemp", "onWeatherUpdated: " + WeatherImage);
         final String DEGREE  = "\u00b0";
         temp.setText(""+fahrenToCelsius(wTemp)+DEGREE);
         lowestTemp.setText("L "+fahrenToCelsius(minTemp)+DEGREE);
         highestTemp.setText("H "+fahrenToCelsius(maxTemp)+DEGREE);
         cityName.setText(city);
-
-
 
     }
     public int fahrenToCelsius(int f){

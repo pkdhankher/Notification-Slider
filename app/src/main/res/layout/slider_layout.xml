@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e444"
-    >
+    android:visibility="gone">
 
     <LinearLayout
         android:id="@+id/linearLayout_1stView"
@@ -48,7 +48,7 @@
         android:id="@+id/relativeLayout_2ndview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
+        android:alpha="0"
         android:orientation="vertical">
 
 
@@ -103,46 +103,48 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="19dp"
             card_view:cardBackgroundColor="#333030"
             card_view:cardCornerRadius="20dp"
-            card_view:cardElevation="-3dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/cardView">
+            card_view:cardElevation="-3dp">
 
             <TextView
+                android:id="@+id/textClock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="0dp"
-                android:layout_marginLeft="25dp"
                 android:layout_gravity="top|left"
-                android:textColor="#FEFEFE"
+                android:layout_marginLeft="25dp"
+                android:padding="0dp"
                 android:text="4:20"
-                android:textSize="60sp"
-                android:id="@+id/textClock"/>
+                android:textColor="#FEFEFE"
+                android:textSize="50sp" />
+
             <TextView
+                android:id="@+id/timePeriod"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PM"
-                android:textColor="#F0F0F0"
+                android:layout_marginLeft="140dp"
                 android:layout_marginTop="45dp"
-                android:layout_marginLeft="132dp"
-                android:id="@+id/TimePeriod"
-                />
+                android:text="PM"
+                android:textColor="#F0F0F0" />
+
             <TextView
+                android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="72dp"
                 android:text="Tuesdat,Sept 21"
                 android:textColor="#F0F0F0"
                 android:textSize="17sp"
-                android:layout_marginTop="72dp"
-                android:layout_marginLeft="20dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="1dp"
@@ -208,11 +210,11 @@
             android:id="@+id/missed_calls"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/cardView"
             android:layout_marginTop="32dp"
             card_view:cardBackgroundColor="#484848"
-            card_view:cardElevation="3dp"
-            android:layout_below="@+id/cardView"
-            android:layout_alignParentStart="true">
+            card_view:cardElevation="3dp">
 
             <ImageView
                 android:layout_width="30dp"
