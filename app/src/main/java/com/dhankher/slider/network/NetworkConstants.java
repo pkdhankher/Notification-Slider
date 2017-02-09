@@ -6,7 +6,7 @@ package com.dhankher.slider.network;
 
 public class NetworkConstants {
 
-    private static final String SERVER_ADDRESS = "http://10.1.2.243/tray";
+    private static final String SERVER_ADDRESS = "http://10.1.0.163/tray";
     public static final String ROUTE_GET_WEATHER = SERVER_ADDRESS + "/getWeather.php";
 
 

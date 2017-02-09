@@ -182,8 +182,9 @@ public class LocationManager implements GoogleApiClient.ConnectionCallbacks, Goo
             String addressStr = address.get(0).getLocality();
             builder.append(addressStr);
             builder.append(" ");
-            String currentCity = builder.toString(); //This is the complete address.
+            String currentCity = builder.toString(); //This is the city name.
             Log.d(TAG, "currentCity: "+currentCity);
+
             location.setLat(lat);
             location.setLng(lng);
             location.setCity(currentCity);
